@@ -5,7 +5,7 @@ var scrabbleScore = function(word) {
   var threePointArray = ["B","C","M","P"];
   var fourPointArray = ["F","H","V","W","Y"];
   var splitWord = word.toUpperCase().split('');
-  
+
   for (var i = 0; i < splitWord.length; i++) {
     var letter = splitWord[i];
     for (var j = 0; j < onePointArray.length; j++) {
@@ -27,16 +27,26 @@ var scrabbleScore = function(word) {
       if (letter === fourPointArray[m]) {
         finalScore += 4;
       }
-    }
+    } 
     if (letter === "K") {
       finalScore += 5;
-    }
-    if (letter === "J" || letter === "X") {
+    } else if (letter === "J" || letter === "X") {
       finalScore += 8;
-    }
-    if (letter === "Q" || letter === "Z") {
+    } else if (letter === "Q" || letter === "Z") {
       finalScore += 10;
     }
   }
   return finalScore;
 };
+
+$(document).ready(function(){
+  $("#scrabbleForm").submit(function(event){
+    var word = $("#word").val();
+
+    $(".result").prepend((word).toUpperCase() + " = " + scrabbleScore(word) + " points" + "<br>");
+
+
+  event.preventDefault();
+  });
+});
+
